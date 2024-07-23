@@ -1,6 +1,8 @@
 # Problem
 
-**CASE/UCO adopters need to serialize outputs from command line tools into `.jsonld`.** In our use case, adopters are not able to run any database (e.g., graph database) as part of the technology stack and the computer running this program is a typical business laptop with ~8GB of memory. In this example, we have a notional software tool's json-formatted output of a list of email addresses and properties. We need to convert this data of 100K records into UCO-compliant `.jsonld`. We have included the data generation script `generate_input_data.py` to help you generate the 100K records.
+**CASE/UCO adopters need to serialize outputs from command line tools into `.jsonld`.** In our use case, adopters are not able to run any database (e.g., graph database) as part of the technology stack and the computer running this program is a typical business laptop with ~8GB of memory. In this example, we have a notional software tool's json-formatted output of a list of email addresses and properties. We need to convert this data of 100K records into UCO-compliant `.jsonld`. We have included the data generation script `generate_input_data.py` to help you generate the 100K records. 
+
+This project serves as a working example that presents a simple mapping of a local data model to the Unified Cyber Ontology, and a batch serializer for processing json records.
 
 ## Solution
 
