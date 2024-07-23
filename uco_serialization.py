@@ -3,6 +3,8 @@ import rdflib
 from rdflib import Graph, URIRef, Literal, BNode
 from rdflib.namespace import RDF, XSD
 import json
+import argparse
+import os
 
 from internal_data_model import InternalEmail, InternalRelationship
 
@@ -79,40 +81,47 @@ class CASEUCO:
 
 # Command-line interface for batch processing
 if __name__ == "__main__":
-    import argparse
-    import os
+    try:
+        parser = argparse.ArgumentParser(description='CASE/UCO JSON-LD Generator')
+        parser.add_argument('--input', type=str, required=True, help='Input data file')
+        parser.add_argument('--batch_size', type=int, default=1000, help='Number of records to process in each batch')
+        parser.add_argument('--output', type=str, default='case_output.jsonld', help='Output file')
 
-    parser = argparse.ArgumentParser(description='CASE/UCO JSON-LD Generator')
-    parser.add_argument('--input', type=str, required=True, help='Input data file')
-    parser.add_argument('--batch_size', type=int, default=1000, help='Number of records to process in each batch')
-    parser.add_argument('--output', type=str, default='case_output.jsonld', help='Output file')
+        args = parser.parse_args()
 
-    args = parser.parse_args()
+        case_uco = CASEUCO()
 
-    case_uco = CASEUCO()
+        # Load input data from JSON file
+        with open(args.input, 'r') as f:
+            input_data = json.load(f)
 
-    # Simulated input data for demonstration
-    input_data = [InternalEmail(
-        email=f"example{i}@example.com",
-        byte_order="Big-endian",
-        size_in_bytes=17,
-        hash_method="SHA256",
-        hash_value="8fabebdaf41b54014f6c3507c44ae160547d05d31bd50d6a12234c5bc4bdb45c"
-    ) for i in range(10000)]  # Simulating 10,000 records
+        # Convert input data to InternalEmail objects
+        emails = [
+            InternalEmail(
+                email=item['email'],
+                byte_order=item['byte_order'],
+                size_in_bytes=item['size_in_bytes'],
+                hash_method=item['hash_method'],
+                hash_value=item['hash_value']
+            ) for item in input_data
+        ]
 
-    # Process data in batches
-    for i in range(0, len(input_data), args.batch_size):
-        batch = input_data[i:i + args.batch_size]
-        for record in batch:
-            case_uco.add_email_address(
-                email=record.email,
-                byte_order=record.byte_order,
-                size_in_bytes=record.size_in_bytes,
-                hash_method=record.hash_method,
-                hash_value=record.hash_value
-            )
-        
-        # Serialize and write the current batch to the output file
-        case_uco.serialize_graph(args.output)
+        # Process data in batches
+        for i in range(0, len(emails), args.batch_size):
+            batch = emails[i:i + args.batch_size]
+            for record in batch:
+                case_uco.add_email_address(
+                    email=record.email,
+                    byte_order=record.byte_order,
+                    size_in_bytes=record.size_in_bytes,
+                    hash_method=record.hash_method,
+                    hash_value=record.hash_value
+                )
+            
+            # Serialize and write the current batch to the output file
+            case_uco.serialize_graph(args.output)
 
-    print(f"CASE/UCO JSON-LD data has been written to {args.output}")
+        print(f"CASE/UCO JSON-LD data has been written to {args.output}")
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
