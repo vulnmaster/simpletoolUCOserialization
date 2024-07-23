@@ -1,4 +1,6 @@
 # generate_input_data.py
+# written with the assistance of Generative AI
+
 import json
 
 # Function to generate a single example of email data

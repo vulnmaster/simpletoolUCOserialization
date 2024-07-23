@@ -1,4 +1,5 @@
 # internal_data_model.py
+# written with the assistance of Generative AI
 
 class InternalEmail:
     def __init__(self, email, byte_order, size_in_bytes, hash_method, hash_value):

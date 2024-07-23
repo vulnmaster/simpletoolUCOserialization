@@ -1,3 +1,5 @@
+# written with the assistance of Generative AI
+
 import uuid
 import rdflib
 from rdflib import Graph, URIRef, Literal, BNode
