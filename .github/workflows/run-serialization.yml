@@ -1,0 +1,35 @@
+name: Run UCO Serialization
+
+on: [push, pull_request]
+
+jobs:
+  run-serialization:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Generate input data
+      run: |
+        python generate_input_data.py
+
+    - name: Run UCO Serialization
+      run: |
+        python uco_serialization.py --input input_data.json --batch_size 1000 --output case_output.jsonld
+
+    - name: Upload output file
+      uses: actions/upload-artifact@v2
+      with:
+        name: case_output.jsonld
+        path: case_output.jsonld
