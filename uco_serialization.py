@@ -28,6 +28,7 @@ class CASEUCO:
         }
         self.output_file = output_file
         self.init_output_file()
+        self.first_object = True  # Track if it's the first object for proper JSON-LD formatting
 
     def init_output_file(self):
         with open(self.output_file, 'w') as f:
@@ -79,8 +80,10 @@ class CASEUCO:
 
     def serialize_object(self, obj):
         with open(self.output_file, 'a') as f:
+            if not self.first_object:
+                f.write(',\n')
             json.dump(obj, f, indent=4)
-            f.write(',\n')
+            self.first_object = False
 
 # Command-line interface for batch processing
 if __name__ == "__main__":
