@@ -6,7 +6,7 @@ import argparse
 import os
 import ijson  # Importing ijson for efficient JSON reading
 
-from internal_data_model import InternalEmail, InternalRelationship
+from internal_data_model import FileSystemEntry, InternalRelationship
 
 # Define namespaces
 UCO_CORE = "https://ontology.unifiedcyberontology.org/uco/core/"
@@ -41,42 +41,43 @@ class CASEUCO:
     def generate_uuid(self):
         return str(uuid.uuid4())
 
-    def add_email_address(self, email, byte_order="Big-endian", size_in_bytes=17, hash_method="SHA256", hash_value=""):
-        email_address_id = f"{EX}extracted_email_address-{self.generate_uuid()}"
+    def add_file_system_entry(self, filename, filepath, write_time, sha256_hash):
+        file_entry_id = f"{EX}file_entry-{self.generate_uuid()}"
         content_data_facet_id = f"{EX}content-data-facet-{self.generate_uuid()}"
         hash_id = f"{EX}hash-{self.generate_uuid()}"
 
-        email_address = {
-            "@id": email_address_id,
-            "@type": f"{UCO_OBSERVABLE}EmailAddress",
+        file_entry = {
+            "@id": file_entry_id,
+            "@type": f"{UCO_OBSERVABLE}File",
             f"{UCO_CORE}hasFacet": {
                 "@id": content_data_facet_id,
                 "@type": f"{UCO_OBSERVABLE}ContentDataFacet",
-                f"{UCO_OBSERVABLE}byteOrder": {
-                    "@type": f"{UCO_VOCABULARY}EndiannessTypeVocab",
-                    "@value": byte_order
-                },
+                f"{UCO_OBSERVABLE}fileName": filename,
+                f"{UCO_OBSERVABLE}filePath": filepath,
                 f"{UCO_OBSERVABLE}sizeInBytes": {
                     "@type": "xsd:integer",
-                    "@value": size_in_bytes
+                    "@value": 0  # Size is not provided, set to 0 or calculate if needed
                 },
-                f"{UCO_OBSERVABLE}dataPayload": email,
+                f"{UCO_OBSERVABLE}createdTime": {
+                    "@type": "xsd:dateTime",
+                    "@value": write_time
+                },
                 f"{UCO_OBSERVABLE}hash": {
                     "@id": hash_id,
                     "@type": f"{UCO_TYPES}Hash",
                     f"{UCO_TYPES}hashMethod": {
                         "@type": f"{UCO_VOCABULARY}HashNameVocab",
-                        "@value": hash_method
+                        "@value": "SHA256"
                     },
                     f"{UCO_TYPES}hashValue": {
                         "@type": "xsd:hexBinary",
-                        "@value": hash_value
+                        "@value": sha256_hash
                     }
                 }
             }
         }
 
-        self.serialize_object(email_address)
+        self.serialize_object(file_entry)
 
     def serialize_object(self, obj):
         with open(self.output_file, 'a') as f:
@@ -103,12 +104,11 @@ if __name__ == "__main__":
             count = 0
             for item in items:
                 try:
-                    case_uco.add_email_address(
-                        email=item['email'],
-                        byte_order=item['byte_order'],
-                        size_in_bytes=item['size_in_bytes'],
-                        hash_method=item['hash_method'],
-                        hash_value=item['hash_value']
+                    case_uco.add_file_system_entry(
+                        filename=item['filename'],
+                        filepath=item['filepath'],
+                        write_time=item['write_time'],
+                        sha256_hash=item['sha256_hash']
                     )
                     count += 1
                     if count % args.batch_size == 0:
@@ -128,3 +128,4 @@ if __name__ == "__main__":
         case_uco.finalize_output_file()
 
     print(f"CASE/UCO JSON-LD data has been written to {args.output}")
+
