@@ -34,6 +34,10 @@ jobs:
         name: case_output.jsonld
         path: case_output.jsonld
 
+    - name: Validate JSON format
+      run: |
+        python -m json.tool < case_output.jsonld > /dev/null
+
     - name: CASE Export Validation
       uses: kchason/case-validation-action@v2.9.0
       with:
