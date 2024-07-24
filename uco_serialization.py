@@ -96,21 +96,30 @@ if __name__ == "__main__":
     try:
         # Load input data from JSON file using ijson for efficient reading
         with open(args.input, 'r') as f:
-            objects = ijson.items(f, 'item')
+            items = ijson.items(f, 'item')
             count = 0
-            for item in objects:
-                case_uco.add_email_address(
-                    email=item['email'],
-                    byte_order=item['byte_order'],
-                    size_in_bytes=item['size_in_bytes'],
-                    hash_method=item['hash_method'],
-                    hash_value=item['hash_value']
-                )
-                count += 1
-                if count % args.batch_size == 0:
-                    # Evict memory and write current batch
-                    case_uco.serialize_graph(args.output)
+            for item in items:
+                try:
+                    case_uco.add_email_address(
+                        email=item['email'],
+                        byte_order=item['byte_order'],
+                        size_in_bytes=item['size_in_bytes'],
+                        hash_method=item['hash_method'],
+                        hash_value=item['hash_value']
+                    )
+                    count += 1
+                    if count % args.batch_size == 0:
+                        # Evict memory and write current batch
+                        case_uco.serialize_object(item)
+                except KeyError as e:
+                    print(f"Missing key in item: {e}")
+                except ijson.common.IncompleteJSONError as e:
+                    print(f"JSON parsing error: {e}")
 
+    except ijson.common.IncompleteJSONError as e:
+        print(f"JSON parsing error: {e}")
+    except Exception as e:
+        print(f"An error occurred: {e}")
     finally:
         # Finalize the output file
         case_uco.finalize_output_file()
