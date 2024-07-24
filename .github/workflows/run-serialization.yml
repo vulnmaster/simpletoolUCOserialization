@@ -8,10 +8,10 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3  # Updated to v3
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4  # Updated to v4
       with:
         python-version: 3.8
 
@@ -29,7 +29,7 @@ jobs:
         python uco_serialization.py --input input_data.json --batch_size 1000 --output case_output.jsonld
 
     - name: Upload output file
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4  # Updated to v4
       with:
         name: case_output.jsonld
         path: case_output.jsonld
