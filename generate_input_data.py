@@ -9,7 +9,7 @@ from datetime import datetime, timedelta
 import random
 
 # Define the root directory for the simulated file system
-root_directory = "C:\\Users\\OperationsManager\\Documents\\GroceryChain"
+root_directory = "C:\\Users\OperationsManager\Documents\GroceryChain"
 
 # Define some example directories and file types
 directories = [
@@ -58,8 +58,8 @@ def generate_file_entry(index):
         "sha256_hash": sha256_hash
     }
 
-# Generate 10,000 file entries
-data = [generate_file_entry(i) for i in range(10000)]
+# Generate 10 file entries
+data = [generate_file_entry(i) for i in range(10)]
 
 # Write the data to input_data.json
 with open("input_data.json", "w") as f:
