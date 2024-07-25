@@ -64,7 +64,7 @@ class CASEUCO:
                     "@type": "xsd:integer",
                     "@value": 0  # Size is not provided, set to 0 or calculate if needed
                 },
-                f"{UCO_OBSERVABLE}creationTime": {
+                f"{UCO_OBSERVABLE}observableCreatedTime": {
                     "@type": "xsd:dateTime",
                     "@value": write_time
                 },
@@ -134,4 +134,3 @@ if __name__ == "__main__":
         case_uco.finalize_output_file()
 
     print(f"CASE/UCO JSON-LD data has been written to {args.output}")
-
