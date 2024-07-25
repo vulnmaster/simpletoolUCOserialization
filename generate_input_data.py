@@ -29,9 +29,9 @@ def generate_filename():
     """Generate a random filename."""
     return f"{random.randint(100000, 999999)}_{random.choice(['Q1', 'Q2', 'Q3', 'Q4'])}.{random.choice(file_extensions)}"
 
-def generate_filepath():
-    """Generate a random file path."""
-    return os.path.join(root_directory, random.choice(directories), generate_filename())
+def generate_filepath(filename):
+    """Generate a random file path including the filename."""
+    return os.path.join(root_directory, random.choice(directories), filename)
 
 def generate_file_write_time():
     """Generate a random file write time."""
@@ -48,7 +48,7 @@ def calculate_sha256(data):
 def generate_file_entry(index):
     """Generate a single file entry with necessary attributes."""
     filename = generate_filename()
-    filepath = generate_filepath()
+    filepath = generate_filepath(filename)
     write_time = generate_file_write_time()
     sha256_hash = calculate_sha256(filepath + str(write_time))
     return {
@@ -58,12 +58,13 @@ def generate_file_entry(index):
         "sha256_hash": sha256_hash
     }
 
-# Generate 10 file entries
-data = [generate_file_entry(i) for i in range(10)]
+# Generate 10,000 file entries
+data = [generate_file_entry(i) for i in range(10000)]
 
 # Write the data to input_data.json
 with open("input_data.json", "w") as f:
     json.dump(data, f, indent=4)
 
 print("Generated 10,000 file entries in input_data.json")
+
 
