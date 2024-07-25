@@ -64,7 +64,7 @@ class CASEUCO:
                     "@type": "xsd:integer",
                     "@value": 0  # Size is not provided, set to 0 or calculate if needed
                 },
-                f"{UCO_OBSERVABLE}createdTime": {
+                f"{UCO_OBSERVABLE}creationTime": {
                     "@type": "xsd:dateTime",
                     "@value": write_time
                 },
