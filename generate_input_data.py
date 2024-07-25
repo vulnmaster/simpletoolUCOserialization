@@ -58,13 +58,13 @@ def generate_file_entry(index):
         "sha256_hash": sha256_hash
     }
 
-# Generate 10 file entries
-data = [generate_file_entry(i) for i in range(10)]
+# Generate 100 file entries
+data = [generate_file_entry(i) for i in range(100)]
 
 # Write the data to input_data.json
 with open("input_data.json", "w") as f:
     json.dump(data, f, indent=4)
 
-print("Generated 10,000 file entries in input_data.json")
+print("Generated 100 file entries in input_data.json")
 
 
