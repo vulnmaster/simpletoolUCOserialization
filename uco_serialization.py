@@ -52,8 +52,14 @@ class CASEUCO:
             f"{UCO_CORE}hasFacet": {
                 "@id": content_data_facet_id,
                 "@type": f"{UCO_OBSERVABLE}ContentDataFacet",
-                f"{UCO_OBSERVABLE}fileName": filename,
-                f"{UCO_OBSERVABLE}filePath": filepath,
+                f"{UCO_OBSERVABLE}fileName": {
+                    "@type": "xsd:string",
+                    "@value": filename
+                },
+                f"{UCO_OBSERVABLE}filePath": {
+                    "@type": "xsd:string",
+                    "@value": filepath
+                },
                 f"{UCO_OBSERVABLE}sizeInBytes": {
                     "@type": "xsd:integer",
                     "@value": 0  # Size is not provided, set to 0 or calculate if needed
@@ -66,7 +72,7 @@ class CASEUCO:
                     "@id": hash_id,
                     "@type": f"{UCO_TYPES}Hash",
                     f"{UCO_TYPES}hashMethod": {
-                        "@type": f"{UCO_VOCABULARY}HashNameVocab",
+                        "@type": "xsd:string",
                         "@value": "SHA256"
                     },
                     f"{UCO_TYPES}hashValue": {
