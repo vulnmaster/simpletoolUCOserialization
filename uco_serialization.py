@@ -72,7 +72,7 @@ class CASEUCO:
                     "@id": hash_id,
                     "@type": f"{UCO_TYPES}Hash",
                     f"{UCO_TYPES}hashMethod": {
-                        "@type": "xsd:string",
+                        "@type": "vocabulary:HashNameVocab",
                         "@value": "SHA256"
                     },
                     f"{UCO_TYPES}hashValue": {
@@ -134,3 +134,4 @@ if __name__ == "__main__":
         case_uco.finalize_output_file()
 
     print(f"CASE/UCO JSON-LD data has been written to {args.output}")
+
