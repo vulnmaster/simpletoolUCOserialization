@@ -33,7 +33,7 @@ class CASEUCO:
     def generate_uuid(self):
         return str(uuid.uuid4())
 
-    def add_file_system_entry(self, filename, filepath, write_time, sha256_hash):
+    def add_file_system_entry(self, filename, filepath, write_time, sha256_hash, size_in_bytes):
         file_entry_id = f"kb:file_entry-{self.generate_uuid()}"
         content_data_facet_id = f"kb:content-data-facet-{self.generate_uuid()}"
         hash_id = f"kb:hash-{self.generate_uuid()}"
@@ -47,7 +47,7 @@ class CASEUCO:
                     "@type": "uco-observable:ContentDataFacet",
                     "uco-observable:fileName": filename,
                     "uco-observable:filePath": filepath,
-                    "uco-observable:sizeInBytes": 0,  # Size is not provided, set to 0 or calculate if needed
+                    "uco-observable:sizeInBytes": size_in_bytes,
                     "uco-observable:observableCreatedTime": {
                         "@type": "xsd:dateTime",
                         "@value": write_time
@@ -101,7 +101,8 @@ if __name__ == "__main__":
                         filename=item['filename'],
                         filepath=item['filepath'],
                         write_time=item['write_time'],
-                        sha256_hash=item['sha256_hash']
+                        sha256_hash=item['sha256_hash'],
+                        size_in_bytes=item['size_in_bytes']
                     )
                 except KeyError as e:
                     print(f"Missing key in item: {e}")
@@ -116,5 +117,6 @@ if __name__ == "__main__":
         case_uco.serialize()
 
     print(f"CASE/UCO JSON-LD data has been written to {args.output}")
+
 
 

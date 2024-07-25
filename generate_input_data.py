@@ -9,7 +9,7 @@ from datetime import datetime, timedelta
 import random
 
 # Define the root directory for the simulated file system
-root_directory = "C:\\Users\OperationsManager\Documents\GroceryChain"
+root_directory = "C:\\Users\\OperationsManager\\Documents\\GroceryChain"
 
 # Define some example directories and file types
 directories = [
@@ -51,11 +51,13 @@ def generate_file_entry(index):
     filepath = generate_filepath(filename)
     write_time = generate_file_write_time()
     sha256_hash = calculate_sha256(filepath + str(write_time))
+    size_in_bytes = random.randint(1, 1000)
     return {
         "filename": filename,
         "filepath": filepath,
         "write_time": write_time.isoformat(),
-        "sha256_hash": sha256_hash
+        "sha256_hash": sha256_hash,
+        "size_in_bytes": size_in_bytes
     }
 
 # Generate 100000 file entries
