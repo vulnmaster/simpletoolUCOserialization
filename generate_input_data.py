@@ -51,22 +51,22 @@ def generate_file_entry(index):
     filepath = generate_filepath(filename)
     write_time = generate_file_write_time()
     sha256_hash = calculate_sha256(filepath + str(write_time))
-    size_in_bytes = random.randint(1, 1000)
+    size_in_bytes = random.randint(1, 1000)  # Generate random file size between 1 and 1000 bytes
     return {
         "filename": filename,
         "filepath": filepath,
         "write_time": write_time.isoformat(),
         "sha256_hash": sha256_hash,
-        "size_in_bytes": size_in_bytes
+        "size_in_bytes": size_in_bytes  # Include the generated file size
     }
 
-# Generate 100000 file entries
-data = [generate_file_entry(i) for i in range(100000)]
+# Generate 10 file entries
+data = [generate_file_entry(i) for i in range(10)]
 
 # Write the data to input_data.json
 with open("input_data.json", "w") as f:
     json.dump(data, f, indent=4)
 
-print("Generated 100000 file entries in input_data.json")
+print("Generated 10 file entries in input_data.json")
 
 

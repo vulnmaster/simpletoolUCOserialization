@@ -4,7 +4,6 @@
 import os
 import hashlib
 from datetime import datetime
-import random
 
 class InternalRelationship:
     def __init__(self, source_id, target_id, relationship_type, range_offset, range_size):
@@ -20,7 +19,7 @@ class FileSystemEntry:
         self.filepath = filepath
         self.write_time = write_time
         self.sha256_hash = sha256_hash
-        self.size_in_bytes = size_in_bytes
+        self.size_in_bytes = size_in_bytes  # Add size_in_bytes attribute
 
 def calculate_sha256(file_path):
     """Calculate the SHA256 hash of a file."""
@@ -35,10 +34,6 @@ def get_file_write_time(file_path):
     timestamp = os.path.getmtime(file_path)
     return datetime.fromtimestamp(timestamp).isoformat()
 
-def get_file_size(file_path):
-    """Get the size of a file in bytes."""
-    return os.path.getsize(file_path)
-
 def enumerate_files(directory):
     """Enumerate files in a directory and gather information."""
     file_entries = []
@@ -48,7 +43,7 @@ def enumerate_files(directory):
             filename = os.path.basename(file_path)
             write_time = get_file_write_time(file_path)
             sha256_hash = calculate_sha256(file_path)
-            size_in_bytes = get_file_size(file_path)
+            size_in_bytes = os.path.getsize(file_path)  # Get the size of the file
             file_entry = FileSystemEntry(filename, file_path, write_time, sha256_hash, size_in_bytes)
             file_entries.append(file_entry)
     return file_entries
@@ -63,4 +58,5 @@ if __name__ == "__main__":
         print(f"Write Time: {entry.write_time}")
         print(f"SHA256: {entry.sha256_hash}")
         print(f"Size in Bytes: {entry.size_in_bytes}\n")
+
 
