@@ -49,3 +49,8 @@ This script processes the input data in batches and serializes the output to a .
 
 
 Github runs an action upon commit (`.github/workflows/run-serialization.yml`) that orchestrates this small system to produce validated CASE/UCO .jsonld
+
+
+## Licensing
+
+Portions of this repository contributed by NIST are governed by the [NIST Software Licensing Statement](THIRD_PARTY_LICENSES.md#nist-software-licensing-statement).
