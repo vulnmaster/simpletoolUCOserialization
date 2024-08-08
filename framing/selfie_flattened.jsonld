@@ -1,0 +1,42 @@
+{
+    "@context": {
+        "kb": "http://example.org/kb/",
+        "foaf": "http://xmlns.com/foaf/0.1/",
+        "prov": "http://www.w3.org/ns/prov#",
+
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "uco-identity": "https://ontology.unifiedcyberontology.org/uco/identity/",
+        "uco-observable": "https://ontology.unifiedcyberontology.org/uco/observable/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#"
+    },
+    "@graph": [
+        {
+            "@id": "kb:Person-1",
+            "@type": [
+                "foaf:Person",
+                "prov:Person",
+                "uco-identity:Person"
+            ],
+            "foaf:depiction": {
+                "@id": "kb:Selfie-1"
+            },
+            "prov:generated": {
+                "@id": "kb:Selfie-1"
+            }
+        },
+        {
+            "@id": "kb:Selfie-1",
+            "@type": [
+                "foaf:Image",
+                "prov:Entity",
+                "uco-observable:File"
+            ],
+            "foaf:depicts": {
+                "@id": "kb:Person-1"
+            },
+            "prov:wasGeneratedBy": {
+                "@id": "kb:Person-1"
+            }
+        }
+    ]
+}

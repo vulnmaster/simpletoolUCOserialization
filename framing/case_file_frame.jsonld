@@ -1,0 +1,18 @@
+{
+    "@context": {
+        "kb": "http://example.org/kb/",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+        "uco-observable": "https://ontology.unifiedcyberontology.org/uco/observable/",
+        "uco-types": "https://ontology.unifiedcyberontology.org/uco/types/",
+        "uco-vocabulary": "https://ontology.unifiedcyberontology.org/uco/vocabulary/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#"
+    },
+    "@type": "uco-observable:File",
+    "uco-core:hasFacet": {
+        "@type": "uco-observable:ContentDataFacet",
+        "uco-observable:hash": {
+            "@type": "uco-types:Hash"
+        }
+    }
+}

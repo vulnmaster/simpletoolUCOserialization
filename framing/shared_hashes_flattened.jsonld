@@ -1,0 +1,117 @@
+{
+    "@context": {
+        "kb": "http://example.org/kb/",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+        "uco-observable": "https://ontology.unifiedcyberontology.org/uco/observable/",
+        "uco-types": "https://ontology.unifiedcyberontology.org/uco/types/",
+        "uco-vocabulary": "https://ontology.unifiedcyberontology.org/uco/vocabulary/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#"
+    },
+    "@graph": [
+        {
+            "@id": "kb:ArchiveFile-b5d685d6-ab6f-42c5-9d96-9bed05d07db5",
+            "@type": "uco-observable:ArchiveFile",
+            "rdfs:comment": "This file has a different hash from the two files in the bundle.  The technical purpose of this file is showing when filtering decisions occur.  This node will not be included in the results unless type expansion occurs (i.e., the superclass :File is added through RDFS or OWL expansion before framing).",
+            "uco-core:hasFacet": {
+                "@id": "kb:ContentDataFacet-e61b068e-a011-40a7-8462-d84b8a71acf6"
+            }
+        },
+        {
+            "@id": "kb:Bundle-3e08eb6e-de45-40f7-99e6-007a671c30e0",
+            "@type": "uco-core:Bundle",
+            "rdfs:comment": "This bundle groups two files that have a matching hash.  The technical purpose of this bundle is showing when inlining decisions occur.  This node will not be included in the results.  (Empty frame wildcard usage not yet explored.)",
+            "rdfs:seeAlso": {"@id": "https://www.w3.org/TR/json-ld11-framing/#empty-frame-0"},
+            "uco-core:object": [
+                {
+                    "@id": "kb:File-31a27433-e5aa-43d8-b4c5-e6102492ebcf"
+                },
+                {
+                    "@id": "kb:File-fc4b17d1-9c23-4791-8324-d2299cf5ecb1"
+                }
+            ]
+        },
+        {
+            "@id": "kb:ContentDataFacet-22e6ec48-9edc-45e2-befa-b6c98847fd16",
+            "@type": "uco-observable:ContentDataFacet",
+            "rdfs:comment": "This facet is expected to have an inlined hash.",
+            "uco-observable:hash": {
+                "@id": "kb:Hash-82079c48-93b9-40e8-89d1-53c496bf311d"
+            }
+        },
+        {
+            "@id": "kb:ContentDataFacet-921f83ab-bfc1-4656-9380-9b02e2410f2f",
+            "@type": "uco-observable:ContentDataFacet",
+            "rdfs:comment": "This facet is expected to have an inlined hash.",
+            "uco-observable:hash": {
+                "@id": "kb:Hash-82079c48-93b9-40e8-89d1-53c496bf311d"
+            }
+        },
+        {
+            "@id": "kb:ContentDataFacet-e61b068e-a011-40a7-8462-d84b8a71acf6",
+            "@type": "uco-observable:ContentDataFacet",
+            "rdfs:comment": "This facet will be dropped unless type expansion occurs on the ArchiveFile node.",
+            "uco-observable:hash": {
+                "@id": "kb:Hash-b05ed35d-3f1e-440f-aea6-77fd9d07be38"
+            }
+        },
+        {
+            "@id": "kb:File-31a27433-e5aa-43d8-b4c5-e6102492ebcf",
+            "@type": "uco-observable:File",
+            "rdfs:comment": "This file is expected to have an inlined ContentDataFacet.",
+            "uco-core:hasFacet": {
+                "@id": "kb:ContentDataFacet-22e6ec48-9edc-45e2-befa-b6c98847fd16"
+            }
+        },
+        {
+            "@id": "kb:File-cd93ddfc-ded1-42dd-825c-66e36cc5cc54",
+            "@type": "uco-observable:File",
+            "rdfs:comment": "This file node is expected to attempt, but not succeed at, inducing an infinite loop of node-inlines via rdfs:seeAlso with a 'partnered' file.",
+            "rdfs:seeAlso": {
+                "@id": "kb:File-ea6b3bb4-5932-4e00-8740-086d78e4125f"
+            }
+        },
+        {
+            "@id": "kb:File-ea6b3bb4-5932-4e00-8740-086d78e4125f",
+            "@type": "uco-observable:File",
+            "rdfs:comment": "This file node is a 'partner' file in an attempted inifite node-inlining loop using rdfs:seeAlso.",
+            "rdfs:seeAlso": {
+                "@id": "kb:File-cd93ddfc-ded1-42dd-825c-66e36cc5cc54"
+            }
+        },
+        {
+            "@id": "kb:File-fc4b17d1-9c23-4791-8324-d2299cf5ecb1",
+            "@type": "uco-observable:File",
+            "rdfs:comment": "This file is expected to have an inlined ContentDataFacet.",
+            "uco-core:hasFacet": {
+                "@id": "kb:ContentDataFacet-921f83ab-bfc1-4656-9380-9b02e2410f2f"
+            }
+        },
+        {
+            "@id": "kb:Hash-82079c48-93b9-40e8-89d1-53c496bf311d",
+            "@type": "uco-types:Hash",
+            "rdfs:comment": "This hash is expected to appear fully inlined in two nodes.",
+            "uco-types:hashMethod": {
+                "@type": "uco-vocabulary:HashNameVocab",
+                "@value": "SHA256"
+            },
+            "uco-types:hashValue": {
+                "@type": "xsd:hexBinary",
+                "@value": "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
+            }
+        },
+        {
+            "@id": "kb:Hash-b05ed35d-3f1e-440f-aea6-77fd9d07be38",
+            "@type": "uco-types:Hash",
+            "rdfs:comment": "This hash will be dropped unless type expansion occurs on the ArchiveFile node.",
+            "uco-types:hashMethod": {
+                "@type": "uco-vocabulary:HashNameVocab",
+                "@value": "SHA256"
+            },
+            "uco-types:hashValue": {
+                "@type": "xsd:hexBinary",
+                "@value": "762069bc07a6e1b5df123a5ae7bd91c10daa04694fbaa17fba0cd6a8dcce8f22"
+            }
+        }
+    ]
+}

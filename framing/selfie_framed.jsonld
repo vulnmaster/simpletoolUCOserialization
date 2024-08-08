@@ -1,0 +1,35 @@
+{
+    "@context": {
+        "kb": "http://example.org/kb/",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+        "uco-observable": "https://ontology.unifiedcyberontology.org/uco/observable/",
+        "uco-types": "https://ontology.unifiedcyberontology.org/uco/types/",
+        "uco-vocabulary": "https://ontology.unifiedcyberontology.org/uco/vocabulary/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#"
+    },
+    "@id": "kb:Selfie-1",
+    "@type": [
+        "http://xmlns.com/foaf/0.1/Image",
+        "http://www.w3.org/ns/prov#Entity",
+        "uco-observable:File"
+    ],
+    "http://www.w3.org/ns/prov#wasGeneratedBy": {
+        "@id": "kb:Person-1",
+        "@type": [
+            "http://xmlns.com/foaf/0.1/Person",
+            "http://www.w3.org/ns/prov#Person",
+            "https://ontology.unifiedcyberontology.org/uco/identity/Person"
+        ],
+        "http://www.w3.org/ns/prov#generated": {
+            "@id": "kb:Selfie-1"
+        },
+        "http://xmlns.com/foaf/0.1/depiction": {
+            "@id": "kb:Selfie-1"
+        }
+    },
+    "http://xmlns.com/foaf/0.1/depicts": {
+        "@id": "kb:Person-1"
+    },
+    "uco-core:hasFacet": null
+}
