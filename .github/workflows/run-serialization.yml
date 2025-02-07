@@ -11,9 +11,9 @@ jobs:
       uses: actions/checkout@v4  # Ensure using the latest version
 
     - name: Set up Python
-      uses: actions/setup-python@v4  # Ensure using the latest version
+      uses: actions/setup-python@v5  # Ensure using the latest version
       with:
-        python-version: 3.8
+        python-version: 3.9
 
     - name: Install dependencies
       run: |
